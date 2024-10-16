@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Udum Email Template</title>
+  </head>
+  <body
+    style="
+      padding: 0;
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f5f5;
+    "
+  >
+    <table
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      align="center"
+    >
+      <tr>
+        <td align="center">
+          <table
+            width="600"
+            cellpadding="0"
+            cellspacing="0"
+            border="0"
+            style="background-color: white; margin: 20px auto; padding: 10px"
+          >
+            <tr>
+              <td>
+                <div style="height: 180px; width: 100%">
+                  <img
+                    src="https://i.ibb.co/NKP2KtV/unnamed.png"
+                    alt="template header image"
+                    style="height: 100%; width: 100%"
+                  />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td align="center">
+                <h1
+                  style="
+                    font-family: 'Kumbh Sans', sans-serif;
+                    text-align: center;
+                    font-size: 2.3rem;
+                  "
+                >
+                  Thank you for your trust
+                </h1>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <table
+                  width="100%"
+                  cellpadding="0"
+                  cellspacing="0"
+                  border="0"
+                  style="
+                    width: 80%;
+                    margin: 0 auto;
+                    border: 0.5px solid #000;
+                    background-color: #feffff;
+                    border-radius: 8px;
+                    padding: 10px;
+                  "
+                >
+                  <tr>
+                    <td align="center">
+                      <p
+                        style="
+                          font-size: 1.7rem;
+                          font-family: 'Kaisei Opti', serif;
+                          color: #013b23;
+                          margin: 0;
+                        "
+                      >
+                        Reservation Details
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      align="center"
+                      style="margin-top: 1.3rem; line-height: 30px"
+                    >
+                      Thank you for your trust
+
+                      <h1 style="color: #70b228; margin: 0">{{name}}</h1>
+                      <p style="color: #013b23">Guest Name</p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="margin-top: 1rem">
+                      <table
+                        width="70%"
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                        align="center"
+                        style="margin-bottom: 0"
+                      >
+                        <tr>
+                          <td width="36">
+                            <img
+                              width="38"
+                              src="https://i.ibb.co/c6xs6r7/schedule.png"
+                              alt=""
+                            />
+                          </td>
+                          <td
+                            style="
+                              font-family: 'Kumbh Sans', sans-serif;
+                              color: #013b23;
+                              font-weight: 600;
+                            "
+                          >
+                            Reservation Date:
+                            <span style="font-weight: 600; color: #70b228"
+                              >{{date}}</span
+                            >
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="margin-top: 1rem">
+                      <table
+                        width="70%"
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                        align="center"
+                      >
+                        <tr>
+                          <td width="36">
+                            <img
+                              width="38"
+                              src="https://i.ibb.co/TLPqJn9/clock.png"
+                              alt=""
+                            />
+                          </td>
+                          <td
+                            style="
+                              font-family: 'Kumbh Sans', sans-serif;
+                              color: #013b23;
+                              padding-left: 4px;
+                              font-weight: 600;
+                            "
+                          >
+                            Arrival Time:
+                            <span style="font-weight: 600; color: #70b228"
+                              >{{arrivalTime}}</span
+                            >
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="margin-top: 1rem">
+                      <table
+                        width="70%"
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                        align="center"
+                      >
+                        <tr>
+                          <td width="36">
+                            <img
+                              width="40"
+                              src="https://i.ibb.co/fv8xc5F/man.png"
+                              alt=""
+                            />
+                          </td>
+                          <td
+                            style="
+                              font-family: 'Kumbh Sans', sans-serif;
+                              color: #013b23;
+                              font-weight: 600;
+                            "
+                          >
+                            Guest Number:
+                            <span style="font-weight: 600; color: #70b228"
+                              >{{seats}} Person</span
+                            >
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <p
+                        style="
+                          padding-top: 10px;
+                          text-align: center;
+                          font-family: 'Karla', sans-serif;
+                          font-weight: 300;
+                          margin: 0 65px;
+                          color: #ff1515;
+                        "
+                      >
+                        Please arrive at {{arrivalTime}}, or your booking will
+                        expire and be cancelled at {{expiryTime}}.
+                      </p>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <a
+                        href="{{link}}"
+                        style="
+                          width: 80%;
+                          border-radius: 3px;
+                          border: 0.5px solid #ff1515;
+                          font-family: 'Kumbh Sans', sans-serif;
+                          padding: 8px;
+                          margin-top: 2rem;
+                          background-color: transparent;
+                          display: block;
+                          cursor: pointer;
+                          text-align: center;
+                          margin: 2rem auto 0;
+                          text-decoration: none;
+                          color: #000;
+                        "
+                      >
+                        Cancel
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td align="center">
+                      <p
+                        style="
+                          font-family: 'Karla', sans-serif;
+                          text-align: center;
+                          font-size: 0.8rem;
+                          font-weight: 300;
+                          margin: 10px 80px;
+                        "
+                      >
+                        You can cancel your reservation from here. Just click on
+                        the button and follow the next steps.
+                      </p>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td align="center">
+                <h2
+                  style="
+                    font-family: 'Karla', sans-serif;
+                    text-align: center;
+                    font-size: 1.5rem;
+                    margin: 20px 0;
+                  "
+                >
+                  Follow us on
+                </h2>
+                <table
+                  width="200"
+                  cellpadding="0"
+                  cellspacing="0"
+                  border="0"
+                  align="center"
+                >
+                  <tr>
+                    <td align="center">
+                      <a href="#" style="margin: 0 10px">
+                        <img
+                          width="24"
+                          src="https://i.ibb.co/SKhdz5K/inst.webp"
+                          alt="Instagram"
+                        />
+                      </a>
+                    </td>
+                    <td align="center">
+                      <a href="#" style="margin: 0 10px">
+                        <img
+                          width="24"
+                          src="https://i.ibb.co/0KYWdhj/fb20.png"
+                          alt="Facebook"
+                        />
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td
+                      align="center"
+                      colspan="2"
+                      style="
+                        font-family: 'Karla', sans-serif;
+                        text-align: center;
+                        font-size: 0.8rem;
+                        font-weight: 300;
+                        margin: 10px 0;
+                      "
+                    >
+                      Stay connected with us through our social media channels
+                      for the latest updates.
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
