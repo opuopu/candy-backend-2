@@ -36,6 +36,11 @@ const fileUpload = (uploadDirectory: string) => {
         "image/png",
         "image/jpg",
         "image/jpeg",
+        "image/gif",
+        "image/webp",
+        "image/bmp",
+        "image/tiff",
+        "image/tif",
         "image/svg",
         "image/svg+xml",
       ];
