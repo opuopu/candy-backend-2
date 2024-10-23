@@ -30,30 +30,30 @@ const fileUpload = (uploadDirectory: string) => {
     limits: {
       fileSize: 2000000, // 2 MB limit
     },
-    fileFilter: function (req: Request, file, cb) {
-      // Allowed image types
-      const allowedMimeTypes = [
-        "image/png",
-        "image/jpg",
-        "image/jpeg",
-        "image/gif",
-        "image/webp",
-        "image/bmp",
-        "image/tiff",
-        "image/tif",
-        "image/svg",
-        "image/svg+xml",
-      ];
+    // fileFilter: function (req: Request, file, cb) {
+    //   // Allowed image types
+    //   const allowedMimeTypes = [
+    //     "image/png",
+    //     "image/jpg",
+    //     "image/jpeg",
+    //     "image/gif",
+    //     "image/webp",
+    //     "image/bmp",
+    //     "image/tiff",
+    //     "image/tif",
+    //     "image/svg",
+    //     "image/svg+xml",
+    //   ];
 
-      // Check if the file type is allowed
-      if (allowedMimeTypes.includes(file.mimetype)) {
-        cb(null, true); // Accept the file
-      } else {
-        // Reject the file and send a friendly error message
-        //@ts-ignore
-        cb(new Error("Only png, jpg, jpeg, svg formats are allowed"), false);
-      }
-    },
+    //   // Check if the file type is allowed
+    //   if (allowedMimeTypes.includes(file.mimetype)) {
+    //     cb(null, true); // Accept the file
+    //   } else {
+    //     // Reject the file and send a friendly error message
+    //     //@ts-ignore
+    //     cb(new Error("Only png, jpg, jpeg, svg formats are allowed"), false);
+    //   }
+    // },
   });
 
   return upload;
