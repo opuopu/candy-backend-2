@@ -28,10 +28,8 @@ const insertCandyAddressIntoDb = async (userId: string, payload: TCandy) => {
 
 const getAllCandyAddress = async (query: Partial<TCandy>) => {
   const pipeline: PipelineStage[] = [];
-  console.log("query", query);
 
   if (query?.latitude && query?.longitude) {
-    console.log("query from latitude", query);
     pipeline.push({
       $geoNear: {
         near: {
@@ -103,7 +101,7 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
       break; // Stop further processing if a critical error occurs
     }
   }
-
+  console.log(validResults.length);
   return validResults;
 };
 
