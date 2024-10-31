@@ -72,25 +72,36 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
     },
   });
 
-  try {
-    const result = await Candy.aggregate(pipeline);
-    console.log("result", result);
-    // Filter out problematic documents
-    const validResults = [];
-    for (const doc of result) {
-      try {
-        JSON.stringify(doc); // Trigger UTF-8 encoding check
-        validResults.push(doc); // Push valid documents only
-      } catch (error) {
-        console.warn("Skipping document with UTF-8 error:", error);
-      }
-    }
+  const batchSize = 100; // Define batch size
+  let skip = 0;
+  const validResults = [];
 
-    return validResults;
-  } catch (error) {
-    console.error("Critical error in aggregation:", error);
-    throw error; // Re-throw if unexpected error
+  while (true) {
+    try {
+      const result = await Candy.aggregate([
+        ...pipeline,
+        { $skip: skip },
+        { $limit: batchSize },
+      ]);
+
+      if (result.length === 0) break; // Exit if no more results
+
+      for (const doc of result) {
+        try {
+          JSON.stringify(doc); // Trigger UTF-8 encoding check
+          validResults.push(doc); // Push valid documents only
+        } catch (error) {
+          console.warn("Skipping document with UTF-8 error:", error);
+        }
+      }
+      skip += batchSize;
+    } catch (error) {
+      console.error("Critical error in aggregation:", error);
+      break; // Stop further processing if a critical error occurs
+    }
   }
+
+  return validResults;
 };
 
 const getAllCandy = async () => {
