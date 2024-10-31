@@ -65,21 +65,21 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
       isDeleted: false,
     },
   });
-  pipeline.push({
-    $unwind: "$user",
-  });
+  // pipeline.push({
+  //   $unwind: "$user",
+  // });
 
-  pipeline.push({
-    $project: {
-      address: 1,
-      location: 1,
-      date: 1,
-      status: 1,
-      "user.email": 1,
-      // "user.image": 1,
-      "user.name": 1,
-    },
-  });
+  // pipeline.push({
+  //   $project: {
+  //     address: 1,
+  //     location: 1,
+  //     date: 1,
+  //     status: 1,
+  //     "user.email": 1,
+  //     // "user.image": 1,
+  //     "user.name": 1,
+  //   },
+  // });
   console.log(pipeline);
   const result = await Candy.aggregate(pipeline);
   console.log("result", result);
