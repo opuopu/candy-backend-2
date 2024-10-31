@@ -93,6 +93,7 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
           validResults.push(doc); // Push valid documents only
         } catch (error) {
           console.warn("Skipping document with UTF-8 error:", error);
+          console.log("Problematic document:", doc); // Log the problematic document
         }
       }
       skip += batchSize;
