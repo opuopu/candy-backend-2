@@ -28,7 +28,7 @@ const insertCandyAddressIntoDb = async (userId: string, payload: TCandy) => {
 
 const getAllCandyAddress = async (query: Partial<TCandy>) => {
   const pipeline: PipelineStage[] = [];
-
+  console.log("query", query);
   if (query?.latitude && query?.longitude) {
     pipeline.push({
       $geoNear: {
@@ -76,7 +76,7 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
   const batchSize = 100; // Define batch size
   let skip = 0;
   const validResults = [];
-
+  console.log("pipeline", pipeline);
   while (true) {
     try {
       const result = await Candy.aggregate([
