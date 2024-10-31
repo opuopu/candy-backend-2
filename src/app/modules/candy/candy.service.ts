@@ -1,6 +1,7 @@
 import { PipelineStage } from "mongoose";
 import { TCandy } from "./candy.interface";
 import { Candy } from "./candy.model";
+import { AnyBulkWriteOperation } from "mongodb";
 
 const insertCandyAddressIntoDb = async (userId: string, payload: TCandy) => {
   // check same user in same date
@@ -27,9 +28,16 @@ const insertCandyAddressIntoDb = async (userId: string, payload: TCandy) => {
 };
 
 const getAllCandyAddress = async (query: Partial<TCandy>) => {
+  const latitude = parseFloat(query?.latitude as any);
+  const longitude = parseFloat(query?.longitude as any);
   const pipeline: PipelineStage[] = [];
   console.log("query", query);
-  if (query?.latitude && query?.longitude) {
+  if (
+    !isNaN(latitude) &&
+    !isNaN(longitude) &&
+    latitude !== 0 &&
+    longitude !== 0
+  ) {
     pipeline.push({
       $geoNear: {
         near: {
