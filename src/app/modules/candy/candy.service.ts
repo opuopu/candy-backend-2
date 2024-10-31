@@ -24,6 +24,7 @@ const insertCandyAddressIntoDb = async (userId: string, payload: TCandy) => {
   };
 
   const result = await Candy.create(formatData);
+  console.log(result);
   return result;
 };
 
