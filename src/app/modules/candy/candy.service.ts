@@ -93,7 +93,7 @@ const getAllCandyAddress = async (query: Partial<any>) => {
     },
   });
 
-  const batchSize = 100; // Define batch size
+  const batchSize = 600; // Define batch size
   let skip = 0;
   const validResults = [];
 
