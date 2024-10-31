@@ -101,7 +101,7 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
       break; // Stop further processing if a critical error occurs
     }
   }
-  console.log(validResults.length);
+  console.log(validResults.length, "length");
   return validResults;
 };
 
