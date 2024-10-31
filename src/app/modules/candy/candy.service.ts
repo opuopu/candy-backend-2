@@ -114,7 +114,7 @@ const getAllCandy = async () => {
       { "location.coordinates.1": { $exists: false } },
       { address: { $not: { $type: "string" } } },
       { date: { $not: { $type: "date" } } },
-      { user: { $not: { $type: "ObjectId" } } },
+      // { user: { $not: { $type: "ObjectId" } } },
     ],
     isDeleted: false, // Include only non-deleted documents
   });
