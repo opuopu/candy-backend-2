@@ -76,12 +76,13 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
       date: 1,
       status: 1,
       "user.email": 1,
-      "user.image": 1,
+      // "user.image": 1,
       "user.name": 1,
     },
   });
   console.log(pipeline);
   const result = await Candy.aggregate(pipeline);
+  console.log("result", result);
   return result;
 };
 
