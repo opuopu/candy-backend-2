@@ -128,7 +128,11 @@ const getAllCandyAddress = async (query: Partial<any>) => {
 
 const getAllCandy = async () => {
   const result = await Candy.find();
-  return result;
+  const countDocument = await Candy.countDocuments(result);
+  return {
+    result,
+    countDocument,
+  };
 };
 const getMyCandyAddress = async (id: string) => {
   const result = await Candy.find({ user: id });
