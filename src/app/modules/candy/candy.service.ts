@@ -74,7 +74,7 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
 
   try {
     const result = await Candy.aggregate(pipeline);
-    console.log("result");
+    console.log("result", result);
     // Filter out problematic documents
     const validResults = [];
     for (const doc of result) {
