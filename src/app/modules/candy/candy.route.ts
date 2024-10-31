@@ -13,6 +13,7 @@ router.post(
   validateRequest(candyValidaiton.candySchema),
   candyControllers.insertCandyAddressIntoDb
 );
+router.get("/all-address", candyControllers.getAllCandy);
 router.get("/", candyControllers.getAllCandyAddress);
 router.get(
   "/myaddress",

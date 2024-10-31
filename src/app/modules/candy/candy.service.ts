@@ -52,40 +52,43 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
   }
 
   //  lookup
-  // pipeline.push({
-  //   $lookup: {
-  //     from: "users",
-  //     localField: "user",
-  //     foreignField: "_id",
-  //     as: "user",
-  //   },
-  // });
+  pipeline.push({
+    $lookup: {
+      from: "users",
+      localField: "user",
+      foreignField: "_id",
+      as: "user",
+    },
+  });
   pipeline.push({
     $match: {
       isDeleted: false,
     },
   });
-  // pipeline.push({
-  //   $unwind: "$user",
-  // });
+  pipeline.push({
+    $unwind: "$user",
+  });
 
-  // pipeline.push({
-  //   $project: {
-  //     address: 1,
-  //     location: 1,
-  //     date: 1,
-  //     status: 1,
-  //     "user.email": 1,
-  //     // "user.image": 1,
-  //     "user.name": 1,
-  //   },
-  // });
+  pipeline.push({
+    $project: {
+      address: 1,
+      location: 1,
+      date: 1,
+      status: 1,
+      "user.email": 1,
+      // "user.image": 1,
+      "user.name": 1,
+    },
+  });
   console.log(pipeline);
   const result = await Candy.aggregate(pipeline);
   console.log("result", result);
   return result;
 };
-
+const getAllCandy = async () => {
+  const result = await Candy.find({});
+  return result;
+};
 const getMyCandyAddress = async (id: string) => {
   const result = await Candy.find({ user: id });
   return result;
@@ -104,6 +107,7 @@ const deleteCandyAddress = async (id: string) => {
 export const candyServices = {
   insertCandyAddressIntoDb,
   getAllCandyAddress,
+  getAllCandy,
   updateCandyAddress,
   deleteCandyAddress,
   getMyCandyAddress,

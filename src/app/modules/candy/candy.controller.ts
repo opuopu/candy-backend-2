@@ -26,6 +26,15 @@ const getAllCandyAddress = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getAllCandy = catchAsync(async (req: Request, res: Response) => {
+  const result = await candyServices.getAllCandy();
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: "Candy address retrived successfully.",
+    data: result,
+  });
+});
 const getMyCandyAddress = catchAsync(async (req: Request, res: Response) => {
   const result = await candyServices.getMyCandyAddress(req.user.userId);
   sendResponse(res, {
@@ -62,5 +71,6 @@ export const candyControllers = {
   getAllCandyAddress,
   updateCandyAddress,
   deleteCandyAddress,
+  getAllCandy,
   getMyCandyAddress,
 };
