@@ -106,8 +106,20 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
 };
 
 const getAllCandy = async () => {
-  const result = await Candy.find({});
-  return result;
+  const problematicCandies = await Candy.find({
+    $or: [
+      { "location.coordinates": { $exists: false } },
+      { "location.coordinates": { $not: { $type: "array" } } },
+      { "location.coordinates.0": { $exists: false } },
+      { "location.coordinates.1": { $exists: false } },
+      { address: { $not: { $type: "string" } } },
+      { date: { $not: { $type: "date" } } },
+      { user: { $not: { $type: "ObjectId" } } },
+    ],
+    isDeleted: false, // Include only non-deleted documents
+  });
+  console.log(problematicCandies);
+  return problematicCandies;
 };
 const getMyCandyAddress = async (id: string) => {
   const result = await Candy.find({ user: id });
