@@ -28,6 +28,7 @@ const insertCandyAddressIntoDb = async (userId: string, payload: TCandy) => {
 
 const getAllCandyAddress = async (query: Partial<TCandy>) => {
   const pipeline: PipelineStage[] = [];
+  console.log("query");
 
   if (query?.latitude && query?.longitude) {
     pipeline.push({
@@ -79,7 +80,7 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
       "user.name": 1,
     },
   });
-
+  console.log(pipeline);
   const result = await Candy.aggregate(pipeline);
   return result;
 };
