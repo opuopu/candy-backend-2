@@ -39,7 +39,6 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
             parseFloat(query?.longitude),
             parseFloat(query?.latitude),
           ],
-          // coordinates: [90.42308159679541, 23.77634120911962],
         },
         key: "location",
         query: {},
@@ -51,7 +50,7 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
     });
   }
 
-  //  lookup
+  // Lookup and join
   pipeline.push({
     $lookup: {
       from: "users",
@@ -60,15 +59,18 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
       as: "user",
     },
   });
+
   pipeline.push({
     $match: {
       isDeleted: false,
     },
   });
+
   pipeline.push({
     $unwind: "$user",
   });
 
+  // Project only essential fields
   pipeline.push({
     $project: {
       address: 1,
@@ -76,15 +78,25 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
       date: 1,
       status: 1,
       "user.email": 1,
-      // "user.image": 1,
       "user.name": 1,
     },
   });
-  console.log(pipeline);
-  const result = await Candy.aggregate(pipeline);
-  console.log("result", result);
-  return result;
+
+  try {
+    const result = await Candy.aggregate(pipeline);
+    console.log("result", result);
+    return result;
+  } catch (error: any) {
+    if (error.message.includes("Invalid UTF-8")) {
+      console.error(
+        "Invalid UTF-8 data encountered in the Candy model, returning empty result."
+      );
+      return []; // Return an empty array as a fallback
+    }
+    throw error; // Rethrow unexpected errors
+  }
 };
+
 const getAllCandy = async () => {
   const result = await Candy.find({});
   return result;
