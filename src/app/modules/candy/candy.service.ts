@@ -40,8 +40,9 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
           ],
         },
         key: "location",
-        maxDistance:
-          parseFloat(query?.maxDistance ?? (10000 as unknown as string)) * 1609,
+        // maxDistance:
+        //   parseFloat(query?.maxDistance ?? (10000 as unknown as string)) * 1609,
+        maxDistance: 16090000,
         distanceField: "dist.calculated",
         spherical: true,
       },
