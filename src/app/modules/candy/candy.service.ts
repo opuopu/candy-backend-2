@@ -41,7 +41,6 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
           ],
         },
         key: "location",
-        query: {},
         maxDistance:
           parseFloat(query?.maxDistance ?? (10000 as unknown as string)) * 1609,
         distanceField: "dist.calculated",
@@ -50,7 +49,6 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
     });
   }
 
-  // Lookup and join
   pipeline.push({
     $lookup: {
       from: "users",
@@ -60,17 +58,9 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
     },
   });
 
-  pipeline.push({
-    $match: {
-      isDeleted: false,
-    },
-  });
+  pipeline.push({ $match: { isDeleted: false } });
+  pipeline.push({ $unwind: "$user" });
 
-  pipeline.push({
-    $unwind: "$user",
-  });
-
-  // Project only essential fields
   pipeline.push({
     $project: {
       address: 1,
@@ -84,16 +74,22 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
 
   try {
     const result = await Candy.aggregate(pipeline);
-    console.log("result", result);
-    return result;
-  } catch (error: any) {
-    if (error.message.includes("Invalid UTF-8")) {
-      console.error(
-        "Invalid UTF-8 data encountered in the Candy model, returning empty result."
-      );
-      return []; // Return an empty array as a fallback
+
+    // Filter out problematic documents
+    const validResults = [];
+    for (const doc of result) {
+      try {
+        JSON.stringify(doc); // Trigger UTF-8 encoding check
+        validResults.push(doc); // Push valid documents only
+      } catch (error) {
+        console.warn("Skipping document with UTF-8 error:", error);
+      }
     }
-    throw error; // Rethrow unexpected errors
+
+    return validResults;
+  } catch (error) {
+    console.error("Critical error in aggregation:", error);
+    throw error; // Re-throw if unexpected error
   }
 };
 
