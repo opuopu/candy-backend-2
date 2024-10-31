@@ -27,30 +27,41 @@ const insertCandyAddressIntoDb = async (userId: string, payload: TCandy) => {
   return result;
 };
 
-const getAllCandyAddress = async (query: Partial<TCandy>) => {
-  const latitude = parseFloat(query?.latitude as any);
-  const longitude = parseFloat(query?.longitude as any);
-  const pipeline: PipelineStage[] = [];
-  console.log("query", query);
+const getAllCandyAddress = async (query: Partial<any>) => {
+  // Remove invalid latitude and longitude
   if (
-    !isNaN(latitude) &&
-    !isNaN(longitude) &&
-    latitude !== 0 &&
-    longitude !== 0
+    query.latitude === "0.0" ||
+    query.latitude === "null" ||
+    query.latitude === null ||
+    isNaN(parseFloat(query.latitude))
   ) {
+    delete query.latitude; // Remove invalid latitude
+  }
+
+  if (
+    query.longitude === "0.0" ||
+    query.longitude === "null" ||
+    query.longitude === null ||
+    isNaN(parseFloat(query.longitude))
+  ) {
+    delete query.longitude; // Remove invalid longitude
+  }
+
+  const pipeline: PipelineStage[] = [];
+
+  // Only add the $geoNear stage if latitude and longitude are valid
+  const latitude = parseFloat(query?.latitude);
+  const longitude = parseFloat(query?.longitude);
+
+  if (!isNaN(latitude) && !isNaN(longitude)) {
     pipeline.push({
       $geoNear: {
         near: {
           type: "Point",
-          coordinates: [
-            parseFloat(query?.longitude),
-            parseFloat(query?.latitude),
-          ],
+          coordinates: [longitude, latitude],
         },
         key: "location",
-        maxDistance:
-          parseFloat(query?.maxDistance ?? (10000 as unknown as string)) * 1609,
-        // maxDistance: 16090000,
+        maxDistance: 16090000, // Adjust this as needed
         distanceField: "dist.calculated",
         spherical: true,
       },
@@ -76,15 +87,15 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
       date: 1,
       status: 1,
       "user.email": 1,
-      "user.image": 1,
       "user.name": 1,
+      "user.image": 1,
     },
   });
 
   const batchSize = 100; // Define batch size
   let skip = 0;
   const validResults = [];
-  console.log("pipeline", pipeline);
+
   while (true) {
     try {
       const result = await Candy.aggregate([
@@ -110,6 +121,7 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
       break; // Stop further processing if a critical error occurs
     }
   }
+
   console.log(validResults.length, "length");
   return validResults;
 };
