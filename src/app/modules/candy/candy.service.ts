@@ -128,7 +128,7 @@ const getAllCandyAddress = async (query: Partial<any>) => {
 };
 
 const getAllCandy = async () => {
-  const result = await Candy.find({}, { enableUtf8Validation: false });
+  const result = await Candy.find({});
   const countDocument = await Candy.countDocuments(result);
   return {
     result,
