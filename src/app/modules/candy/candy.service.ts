@@ -52,14 +52,14 @@ const getAllCandyAddress = async (query: Partial<TCandy>) => {
   }
 
   //  lookup
-  pipeline.push({
-    $lookup: {
-      from: "users",
-      localField: "user",
-      foreignField: "_id",
-      as: "user",
-    },
-  });
+  // pipeline.push({
+  //   $lookup: {
+  //     from: "users",
+  //     localField: "user",
+  //     foreignField: "_id",
+  //     as: "user",
+  //   },
+  // });
   pipeline.push({
     $match: {
       isDeleted: false,
