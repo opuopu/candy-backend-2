@@ -1,21 +1,22 @@
 import { z } from 'zod';
 const timeRegex = /^([01]\d|2[0-3]):([0-5]\d)$/;
 const insertEventSchema = z.object({
-  user: z.string().min(1, 'User ID is required'),
-  title: z.string().optional().default(''),
-  description: z.string().optional().default(''),
-  address: z.string().min(1, 'Address is required'),
-  location: z.object({
-    type: z.literal('Point').default('Point'),
-    coordinates: z
-      .array(z.number())
-      .length(2, 'Coordinates must be [longitude, latitude]')
-      .default([0, 0]),
+  body: z.object({
+    title: z.string().optional().default(''),
+    description: z.string().optional().default(''),
+    address: z.string().min(1, 'Address is required'),
+    location: z.object({
+      type: z.literal('Point').default('Point'),
+      coordinates: z
+        .array(z.number())
+        .length(2, 'Coordinates must be [longitude, latitude]')
+        .default([0, 0]),
+    }),
+    status: z.enum(['active', 'closed']).default('active'),
+    date: z.string().min(1, 'Date is required'),
+    time: z.string().regex(timeRegex, 'Time must be in hh:mm format (24-hour)'),
+    isDeleted: z.boolean().default(false),
   }),
-  status: z.enum(['active', 'closed']).default('active'),
-  date: z.string().min(1, 'Date is required'),
-  time: z.string().regex(timeRegex, 'Time must be in hh:mm format (24-hour)'),
-  isDeleted: z.boolean().default(false),
 });
 
 const updateEventSchema = z.object({

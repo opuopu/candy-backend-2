@@ -1,23 +1,40 @@
-import { Request, Response } from "express";
-import httpStatus from "http-status";
-import config from "../../config";
-import catchAsync from "../../utils/catchAsync";
-import sendResponse from "../../utils/sendResponse";
-import { authServices } from "./auth.service";
+import { Request, Response } from 'express';
+import httpStatus from 'http-status';
+import config from '../../config';
+import catchAsync from '../../utils/catchAsync';
+import sendResponse from '../../utils/sendResponse';
+import { authServices } from './auth.service';
 const login = catchAsync(async (req: Request, res: Response) => {
   const result = await authServices.login(req.body);
   const { refreshToken } = result;
-  res.cookie("refreshToken", refreshToken, {
-    secure: config.NODE_ENV === "production",
+  res.cookie('refreshToken', refreshToken, {
+    secure: config.NODE_ENV === 'production',
     httpOnly: true,
-    sameSite: "none",
+    sameSite: 'none',
     maxAge: 1000 * 60 * 60 * 24 * 365,
   });
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Logged in successfully",
+    message: 'Logged in successfully',
+    data: result,
+  });
+});
+const adminLogin = catchAsync(async (req: Request, res: Response) => {
+  const result = await authServices.adminLogin(req.body);
+  const { refreshToken } = result;
+  res.cookie('refreshToken', refreshToken, {
+    secure: config.NODE_ENV === 'production',
+    httpOnly: true,
+    sameSite: 'none',
+    maxAge: 1000 * 60 * 60 * 24 * 365,
+  });
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Logged in successfully',
     data: result,
   });
 });
@@ -26,7 +43,7 @@ const changePassword = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "password changed successfully",
+    message: 'password changed successfully',
     data: result,
   });
 });
@@ -35,7 +52,7 @@ const forgotPassword = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "An otp sent to your email!",
+    message: 'An otp sent to your email!',
     data: result,
   });
 });
@@ -48,7 +65,7 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Password changed successfully",
+    message: 'Password changed successfully',
     data: result,
   });
 });
@@ -58,7 +75,7 @@ const refreshToken = catchAsync(async (req, res) => {
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Access token is retrieved successfully",
+    message: 'Access token is retrieved successfully',
     data: result,
   });
 });
@@ -68,4 +85,5 @@ export const authControllers = {
   forgotPassword,
   resetPassword,
   refreshToken,
+  adminLogin,
 };

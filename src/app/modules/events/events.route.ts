@@ -29,4 +29,4 @@ router.delete(
   auth(USER_ROLE.user, USER_ROLE.candyGiver),
   eventControllers.deleteEvent
 );
-export const candyRoutes = router;
+export const eventRoutes = router;
