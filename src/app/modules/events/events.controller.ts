@@ -59,6 +59,7 @@ const deleteEvent = catchAsync(async (req: Request, res: Response) => {
 const eventControllers = {
   insertEventIntoDb,
   getAllEvents,
+  getSingleEvent,
   updateEvent,
   deleteEvent,
 };
