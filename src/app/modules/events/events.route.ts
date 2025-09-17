@@ -13,20 +13,22 @@ router.post(
   eventControllers.insertEventIntoDb
 );
 router.get(
-  '/',
-
-  eventControllers.getAllEvents
+  '/my_events',
+  auth(USER_ROLE.user, USER_ROLE.candyGiver),
+  eventControllers.getMyEvents
 );
+
+router.get('/', eventControllers.getAllEvents);
 router.get('/:id', eventControllers.getSingleEvent);
 router.patch(
   '/:id',
-  auth(USER_ROLE.user, USER_ROLE.candyGiver),
+  auth(USER_ROLE.user, USER_ROLE.candyGiver, USER_ROLE.admin),
   validateRequest(eventValidationSchema.insertEventSchema),
   eventControllers.updateEvent
 );
 router.delete(
   '/:id',
-  auth(USER_ROLE.user, USER_ROLE.candyGiver),
+  auth(USER_ROLE.user, USER_ROLE.candyGiver, USER_ROLE.admin),
   eventControllers.deleteEvent
 );
 export const eventRoutes = router;

@@ -61,6 +61,11 @@ const getSingleEvents = async (id: string) => {
   return result;
 };
 
+const getMyEvents = async (query: any) => {
+  const result = await Event.find(query);
+  return result;
+};
+
 const updateEvents = async (id: string, payload: any) => {
   const result = Event.findByIdAndUpdate(id, payload, { new: true });
   return result;
@@ -76,6 +81,7 @@ const eventServices = {
   getAllEvents,
   getSingleEvents,
   updateEvents,
+  getMyEvents,
   deleteEvents,
 };
 

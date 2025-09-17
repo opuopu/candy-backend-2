@@ -25,6 +25,17 @@ const getAllEvents = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
+const getMyEvents = catchAsync(async (req: Request, res: Response) => {
+  const query = { ...req.query };
+  query['user'] = req.user.userId;
+  const result = await eventServices.getMyEvents(query);
+  sendResponse(res, {
+    statusCode: 200,
+    success: true,
+    message: 'Events retrieved successfully.',
+    data: result,
+  });
+});
 
 const getSingleEvent = catchAsync(async (req: Request, res: Response) => {
   const result = await eventServices.getSingleEvents(req.params.id);
@@ -61,6 +72,7 @@ const eventControllers = {
   getAllEvents,
   getSingleEvent,
   updateEvent,
+  getMyEvents,
   deleteEvent,
 };
 
