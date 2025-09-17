@@ -46,6 +46,7 @@ const getAllEvents = async (query: Partial<any>) => {
       address: 1,
       location: 1,
       date: 1,
+      time: 1,
       status: 1,
       'user.email': 1,
       'user.name': 1,

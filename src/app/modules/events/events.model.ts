@@ -40,6 +40,10 @@ const EventSchema = new Schema<IEvent>(
       type: String,
       required: true,
     },
+    time: {
+      type: String,
+      required: true,
+    },
     isDeleted: {
       type: Boolean,
       default: false,

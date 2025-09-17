@@ -1,4 +1,4 @@
-import { Types } from "mongoose";
+import { Types } from 'mongoose';
 
 export interface IEvent {
   user: Types.ObjectId;
@@ -9,8 +9,9 @@ export interface IEvent {
     type: string;
     coordinates: number[];
   };
-  status: "active" | "closed";
+  status: 'active' | 'closed';
   date: string;
+  time: string;
   isDeleted: boolean;
   createdAt?: Date;
   updatedAt?: Date;
