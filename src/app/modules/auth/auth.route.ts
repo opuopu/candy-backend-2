@@ -15,7 +15,7 @@ router.post(
 );
 router.patch(
   '/change-password',
-  auth(USER_ROLE.candyGiver, USER_ROLE.admin),
+  auth(USER_ROLE.candyGiver, USER_ROLE.admin, USER_ROLE.user),
   authControllers.changePassword
 );
 router.patch('/forgot-password', authControllers.forgotPassword);
